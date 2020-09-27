@@ -1,0 +1,2 @@
+ALTER TABLE `students` ADD CONSTRAINT `students_fk0` FOREIGN KEY (`group_id`) REFERENCES `groups`(`id`);
+ALTER TABLE `groups` ADD CONSTRAINT `groups_fk0` FOREIGN KEY (`teacher_id`) REFERENCES `teachers`(`id`);
