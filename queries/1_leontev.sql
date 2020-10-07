@@ -9,8 +9,8 @@ select distinct group_id
 from students
 limit 4, 4;
 
--- 3)Вывести id и name учителей по имени 'Дмитрий' из таблицы teachers, сгрупировав по id.
-select id, name
+-- 3)Вывести id учителей по имени 'Дмитрий' из таблицы teachers, сгрупировав по id.
+select id
 from teachers
 where name = 'Дмитрий'
 group by id;
