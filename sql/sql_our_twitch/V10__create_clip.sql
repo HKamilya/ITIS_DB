@@ -1,9 +1,8 @@
-CREATE TABLE `video` (
-  `id` int NOT NULL,
-  `type` int NOT NULL,
-  `video_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_video_clip1_idx` (`video_id`),
-  CONSTRAINT `fk_video_broadcast_recording1` FOREIGN KEY (`video_id`) REFERENCES `broadcast_recording` (`id`),
-  CONSTRAINT `fk_video_clip1` FOREIGN KEY (`video_id`) REFERENCES `clip` (`id`)
+CREATE TABLE `clip` (
+`id` int NOT NULL,
+`content` varchar(255) NOT NULL,
+`title` varchar(20) NOT NULL,
+`views_number` int NOT NULL DEFAULT '0',
+`date` datetime NOT NULL,
+PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
