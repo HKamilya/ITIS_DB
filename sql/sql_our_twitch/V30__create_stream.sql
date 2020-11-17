@@ -10,10 +10,10 @@ CREATE TABLE IF NOT EXISTS `stream` (
   INDEX `fk_stream_category1_idx` (`category_id` ASC) VISIBLE,
   CONSTRAINT `fk_stream_category1`
     FOREIGN KEY (`category_id`)
-    REFERENCES `twitch`.`category` (`id`),
+    REFERENCES `category` (`id`),
   CONSTRAINT `fk_stream_stream_configuration`
     FOREIGN KEY (`stream_configuration_id`)
-    REFERENCES `twitch`.`stream_configuration` (`id`))
+    REFERENCES `stream_configuration` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;

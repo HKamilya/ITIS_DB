@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `bot` (
   INDEX `fk_bot_channel_chat1_idx` (`channel_chat_id` ASC) VISIBLE,
   CONSTRAINT `fk_bot_channel_chat1`
     FOREIGN KEY (`channel_chat_id`)
-    REFERENCES `twitch`.`channel_chat` (`id`))
+    REFERENCES `channel_chat` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;

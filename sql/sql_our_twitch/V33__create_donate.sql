@@ -11,10 +11,10 @@ CREATE TABLE IF NOT EXISTS `donate` (
   INDEX `fk_donate_donate_content1_idx` (`donate_content_id` ASC) VISIBLE,
   CONSTRAINT `fk_donate_donate_content1`
     FOREIGN KEY (`donate_content_id`)
-    REFERENCES `twitch`.`donate_content` (`id`),
+    REFERENCES `donate_content` (`id`),
   CONSTRAINT `fk_donate_stream1`
     FOREIGN KEY (`stream_id`)
-    REFERENCES `twitch`.`stream` (`id`))
+    REFERENCES `stream` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
