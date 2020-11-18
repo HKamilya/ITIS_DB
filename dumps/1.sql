@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.21, for macos10.15 (x86_64)
 --
--- Host: localhost    Database: our_twitch
+-- Host: 127.0.0.1    Database: our_twitch
 -- ------------------------------------------------------
--- Server version	8.0.12
+-- Server version	8.0.21
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,11 +23,11 @@ DROP TABLE IF EXISTS `ban`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ban` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `date_from` timestamp NULL DEFAULT NULL,
   `date_to` timestamp NULL DEFAULT NULL,
-  `twitch_moderator_id` int(11) DEFAULT NULL,
-  `channel_id` int(11) NOT NULL,
+  `twitch_moderator_id` int DEFAULT NULL,
+  `channel_id` int NOT NULL,
   PRIMARY KEY (`id`,`channel_id`),
   KEY `twitch_moderator_id_idx` (`twitch_moderator_id`),
   KEY `fk_ban_chanel1_idx` (`channel_id`),
@@ -53,10 +53,10 @@ DROP TABLE IF EXISTS `bot`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `bot` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `functions` tinytext,
-  `channel_chat_id` int(11) NOT NULL,
+  `channel_chat_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_bot_channel_chat1_idx` (`channel_chat_id`),
@@ -81,10 +81,10 @@ DROP TABLE IF EXISTS `broadcast_recording`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `broadcast_recording` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `content` varchar(255) NOT NULL,
   `title` varchar(20) NOT NULL,
-  `view_number` int(11) NOT NULL DEFAULT '0',
+  `view_number` int NOT NULL DEFAULT '0',
   `date` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -107,7 +107,7 @@ DROP TABLE IF EXISTS `category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` enum('Counter-Strike','dota2','Among us') NOT NULL,
   `image` mediumblob,
   PRIMARY KEY (`id`),
@@ -132,8 +132,8 @@ DROP TABLE IF EXISTS `channel`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `channel` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
+  `id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
   `description` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id_idx` (`user_id`),
@@ -159,10 +159,10 @@ DROP TABLE IF EXISTS `channel_chat`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `channel_chat` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `type` enum('followers','subscribers') NOT NULL,
-  `delay_between_messages` int(11) DEFAULT '0',
-  `channel_id` int(11) NOT NULL,
+  `delay_between_messages` int DEFAULT '0',
+  `channel_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_channel_chat_channel1_idx` (`channel_id`),
@@ -188,11 +188,11 @@ DROP TABLE IF EXISTS `channel_chat_message`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `channel_chat_message` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `text` varchar(45) DEFAULT NULL,
   `date` datetime DEFAULT NULL,
-  `channel_chat_id` int(11) NOT NULL,
-  `participant_id` int(11) NOT NULL,
+  `channel_chat_id` int NOT NULL,
+  `participant_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_channel_chat_message_channel_chat1_idx` (`channel_chat_id`),
@@ -219,9 +219,9 @@ DROP TABLE IF EXISTS `channel_chat_message_emoticon`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `channel_chat_message_emoticon` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `channel_chat_message_id` int(11) NOT NULL,
-  `emoticon_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `channel_chat_message_id` int NOT NULL,
+  `emoticon_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_channel_chat_message_emoticon_channel_chat_message_idx` (`channel_chat_message_id`),
   KEY `fk_channel_chat_message_emoticon_emoticon1_idx` (`emoticon_id`),
@@ -247,9 +247,9 @@ DROP TABLE IF EXISTS `channel_stream`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `channel_stream` (
-  `id` int(11) NOT NULL,
-  `stream_id` int(11) NOT NULL,
-  `channel_id` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `stream_id` int NOT NULL,
+  `channel_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_channel_stream_stream1_idx` (`stream_id`),
   KEY `fk_channel_stream_channel1_idx` (`channel_id`),
@@ -276,9 +276,9 @@ DROP TABLE IF EXISTS `chat_support`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `chat_support` (
-  `id` int(11) NOT NULL,
-  `support_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `support_id` int NOT NULL,
+  `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_chat_support_user1_idx` (`user_id`),
   KEY `fk_chat_support_support1_idx` (`support_id`),
@@ -304,9 +304,9 @@ DROP TABLE IF EXISTS `chat_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `chat_user` (
-  `id` int(11) NOT NULL,
-  `user_from_id` int(11) NOT NULL,
-  `user_to_id` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `user_from_id` int NOT NULL,
+  `user_to_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_chat_user_user1_idx` (`user_from_id`),
   KEY `fk_chat_user_user2_idx` (`user_to_id`),
@@ -332,12 +332,12 @@ DROP TABLE IF EXISTS `clip`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `clip` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `content` varchar(255) NOT NULL,
   `title` varchar(20) NOT NULL,
-  `views_number` int(11) NOT NULL DEFAULT '0',
+  `views_number` int NOT NULL DEFAULT '0',
   `date` datetime NOT NULL,
-  `participant_id` int(11) NOT NULL,
+  `participant_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_clip_participant1_idx` (`participant_id`),
   CONSTRAINT `fk_clip_participant1` FOREIGN KEY (`participant_id`) REFERENCES `participant` (`id`)
@@ -361,13 +361,13 @@ DROP TABLE IF EXISTS `donate`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `donate` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `sum` decimal(10,2) DEFAULT NULL,
   `date` datetime DEFAULT NULL,
   `text` tinytext,
-  `stream_id` int(11) NOT NULL,
-  `donate_content_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `stream_id` int NOT NULL,
+  `donate_content_id` int NOT NULL,
+  `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_donate_stream1_idx` (`stream_id`),
@@ -396,10 +396,10 @@ DROP TABLE IF EXISTS `donate_content`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `donate_content` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `music` mediumblob,
   `animation` mediumblob,
-  `channel_id` int(11) NOT NULL,
+  `channel_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_donate_content_channel1_idx` (`channel_id`),
@@ -424,7 +424,7 @@ DROP TABLE IF EXISTS `emoticon`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `emoticon` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `picture` mediumblob NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -440,39 +440,6 @@ LOCK TABLES `emoticon` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `flyway_schema_history`
---
-
-DROP TABLE IF EXISTS `flyway_schema_history`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `flyway_schema_history` (
-  `installed_rank` int(11) NOT NULL,
-  `version` varchar(50) DEFAULT NULL,
-  `description` varchar(200) NOT NULL,
-  `type` varchar(20) NOT NULL,
-  `script` varchar(1000) NOT NULL,
-  `checksum` int(11) DEFAULT NULL,
-  `installed_by` varchar(100) NOT NULL,
-  `installed_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `execution_time` int(11) NOT NULL,
-  `success` tinyint(1) NOT NULL,
-  PRIMARY KEY (`installed_rank`),
-  KEY `flyway_schema_history_s_idx` (`success`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `flyway_schema_history`
---
-
-LOCK TABLES `flyway_schema_history` WRITE;
-/*!40000 ALTER TABLE `flyway_schema_history` DISABLE KEYS */;
-INSERT INTO `flyway_schema_history` VALUES (1,'1','create site setting','SQL','V1__create_site_setting.sql',190097265,'root','2020-11-16 16:36:58',56,1),(2,'2','create user','SQL','V2__create_user.sql',607799043,'root','2020-11-16 16:36:58',63,1),(3,'3','create friend','SQL','V3__create_friend.sql',-1983132570,'root','2020-11-16 16:36:58',44,1),(4,'4','create chat user','SQL','V4__create_chat_user.sql',-1000477449,'root','2020-11-16 16:36:58',42,1),(5,'5','create support','SQL','V5__create_support.sql',-1395315714,'root','2020-11-16 16:36:58',28,1),(6,'6','create chat support','SQL','V6__create_chat_support.sql',-1851488372,'root','2020-11-16 16:36:58',43,1),(7,'7','create message user','SQL','V7__create_message_user.sql',-852161559,'root','2020-11-16 16:36:59',48,1),(8,'8','create message support','SQL','V8__create_message_support.sql',-2139903544,'root','2020-11-16 16:36:59',46,1),(9,'9','create broadcast recording','SQL','V9__create_broadcast_recording.sql',-706685279,'root','2020-11-16 16:36:59',28,1),(10,'10','create clip','SQL','V10__create_clip.sql',-492265952,'root','2020-11-16 16:36:59',28,1),(11,'11','create video','SQL','V11__create_video.sql',-956626708,'root','2020-11-16 16:36:59',40,1),(12,'12','create channel','SQL','V12__create_channel.sql',-2047169357,'root','2020-11-16 16:36:59',34,1),(13,'13','create participant','SQL','V13__create_participant.sql',-1807434243,'root','2020-11-16 16:36:59',35,1),(14,'14','create follow','SQL','V14__create_follow.sql',1923619746,'root','2020-11-16 16:36:59',81,1),(15,'15','create twitch moderator','SQL','V15__create_twitch_moderator.sql',-710825510,'root','2020-11-16 16:36:59',44,1),(16,'16','create spectator','SQL','V16__create_spectator.sql',-543431854,'root','2020-11-16 16:36:59',54,1),(17,'17','create subscription','SQL','V17__create_subscription.sql',971975155,'root','2020-11-16 16:36:59',58,1),(18,'18','create emoticon','SQL','V18__create_emoticon.sql',1648659339,'root','2020-11-16 16:36:59',51,1),(19,'19','create subscription emoticon','SQL','V19__create_subscription_emoticon.sql',-42267702,'root','2020-11-16 16:37:00',62,1),(20,'20','create moderator','SQL','V20__create_moderator.sql',-1455301970,'root','2020-11-16 16:37:00',56,1),(21,'21','create ban','SQL','V21__create_ban.sql',-2063197520,'root','2020-11-16 16:37:00',62,1),(22,'22','type of limitation','SQL','V22__type_of_limitation.sql',323538679,'root','2020-11-16 16:37:00',51,1),(23,'23','create user limitation','SQL','V23__create_user_limitation.sql',-498371784,'root','2020-11-17 14:21:08',75,1),(24,'24','create channel chat','SQL','V24__create_channel_chat.sql',1426843225,'root','2020-11-17 14:21:08',21,1),(25,'25','create bot','SQL','V25__create_bot.sql',397095277,'root','2020-11-17 14:21:08',21,1),(26,'26','create category','SQL','V26__create_category.sql',1567089990,'root','2020-11-17 14:21:08',18,1),(27,'27','create channel chat message','SQL','V27__create_channel_chat_message.sql',1401129791,'root','2020-11-17 14:21:08',20,1),(29,'29','create stream configuration','SQL','V29__create_stream_configuration.sql',1803947250,'root','2020-11-17 14:21:08',21,1),(30,'30','create stream','SQL','V30__create_stream.sql',-1804286743,'root','2020-11-17 14:21:08',26,1),(31,'31','create channel stream','SQL','V31__create_channel_stream.sql',-814418158,'root','2020-11-17 14:21:08',18,1),(32,'32','create donate content','SQL','V32__create_donate_content.sql',711497700,'root','2020-11-17 14:21:08',16,1),(33,'33','create donate','SQL','V33__create_donate.sql',1308190550,'root','2020-11-17 14:21:08',23,1),(34,'34','create voting','SQL','V34__create_voting.sql',-1330121619,'root','2020-11-17 14:21:08',22,1),(35,'35','create option','SQL','V35__create_option.sql',1247956947,'root','2020-11-17 14:21:08',23,1),(36,'36','create report','SQL','V36__create_report.sql',-1740746088,'root','2020-11-17 14:21:08',24,1),(37,'37','alter table','SQL','V37__alter_table.sql',-1909912631,'root','2020-11-17 16:13:31',1342,1),(38,'28','create channel chat message emoticon','SQL','V28__create_channel_chat_message_emoticon.sql',-1568550202,'root','2020-11-17 17:36:39',130,1),(39,'38','insert into channel','SQL','V38__insert_into_channel.sql',-1263766045,'root','2020-11-18 21:35:24',334,1),(40,'39','insert into channel chat','SQL','V39__insert_into_channel_chat.sql',392591908,'root','2020-11-18 21:35:24',149,1),(41,'40','insert into stream','SQL','V40__insert_into_stream.sql',-22869629,'root','2020-11-18 21:35:24',130,1),(42,'41','insert into channel stream','SQL','V41__insert_into_channel_stream.sql',2073517100,'root','2020-11-18 21:35:24',107,1),(43,'42','insert into user','SQL','V42__insert_into_user.sql',-208130054,'root','2020-11-18 21:35:25',116,1),(44,'43','.insert into participant','SQL','V43__.insert_into_participant.sql',-1624462608,'root','2020-11-18 21:35:25',103,1);
-/*!40000 ALTER TABLE `flyway_schema_history` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `follow`
 --
 
@@ -480,7 +447,7 @@ DROP TABLE IF EXISTS `follow`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `follow` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -502,9 +469,9 @@ DROP TABLE IF EXISTS `friend`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `friend` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `user_friend_id` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `user_friend_id` int NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_friend_user1_idx` (`user_id`),
@@ -531,12 +498,12 @@ DROP TABLE IF EXISTS `message_support`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `message_support` (
-  `id` int(11) NOT NULL,
-  `support_id` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `support_id` int NOT NULL,
   `content` varchar(255) NOT NULL,
   `date` datetime DEFAULT NULL,
-  `chat_type` int(11) NOT NULL,
-  `chat_id` int(11) NOT NULL,
+  `chat_type` int NOT NULL,
+  `chat_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_message_support_support1_idx` (`support_id`),
   KEY `fk_message_support_chat_support1_idx` (`chat_id`),
@@ -562,12 +529,12 @@ DROP TABLE IF EXISTS `message_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `message_user` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
   `content` varchar(255) NOT NULL,
   `date` datetime NOT NULL,
-  `chat_type` int(11) NOT NULL,
-  `chat_id` int(11) NOT NULL,
+  `chat_type` int NOT NULL,
+  `chat_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_message_user_user1_idx` (`user_id`),
   KEY `fk_message_user_chat_user1_idx` (`chat_id`),
@@ -594,8 +561,8 @@ DROP TABLE IF EXISTS `moderator`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `moderator` (
-  `id` int(11) NOT NULL,
-  `participant_id` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `participant_id` int NOT NULL,
   PRIMARY KEY (`id`,`participant_id`),
   KEY `fk_moderator_participant1_idx` (`participant_id`),
   CONSTRAINT `fk_moderator_participant1` FOREIGN KEY (`participant_id`) REFERENCES `participant` (`id`)
@@ -619,10 +586,10 @@ DROP TABLE IF EXISTS `option`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `option` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
-  `voters_number` int(11) DEFAULT NULL,
-  `voting_id` int(11) NOT NULL,
+  `voters_number` int DEFAULT NULL,
+  `voting_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_option_voting1_idx` (`voting_id`),
@@ -647,9 +614,9 @@ DROP TABLE IF EXISTS `participant`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `participant` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `type_id` int(11) DEFAULT NULL,
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `type_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id_idx` (`user_id`),
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
@@ -674,13 +641,13 @@ DROP TABLE IF EXISTS `report`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `report` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `reason` enum('sexual content','racism') NOT NULL,
   `description` tinytext,
   `date` datetime DEFAULT NULL,
-  `stream_id` int(11) NOT NULL,
-  `video_id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
+  `stream_id` int NOT NULL,
+  `video_id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_report_stream1_idx` (`stream_id`),
@@ -709,7 +676,7 @@ DROP TABLE IF EXISTS `site_setting`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `site_setting` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `theme` varchar(45) NOT NULL DEFAULT '1',
   `language` varchar(25) DEFAULT 'English',
   PRIMARY KEY (`id`)
@@ -733,9 +700,9 @@ DROP TABLE IF EXISTS `spectator`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `spectator` (
-  `id` int(11) NOT NULL,
-  `follow_id` int(11) NOT NULL,
-  `participant_id` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `follow_id` int NOT NULL,
+  `participant_id` int NOT NULL,
   PRIMARY KEY (`id`,`follow_id`,`participant_id`),
   KEY `fk_spectator_follow1_idx` (`follow_id`),
   KEY `fk_spectator_participant1_idx` (`participant_id`),
@@ -761,11 +728,11 @@ DROP TABLE IF EXISTS `stream`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `stream` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `description` tinytext,
-  `stream_configuration_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
+  `stream_configuration_id` int NOT NULL,
+  `category_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_stream_stream_configuration_idx` (`stream_configuration_id`),
@@ -793,9 +760,9 @@ DROP TABLE IF EXISTS `stream_configuration`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `stream_configuration` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `max_quality` enum('360','480','720','1080','1440','ultraHD','4K') NOT NULL DEFAULT '720',
-  `delay` int(11) DEFAULT '0',
+  `delay` int DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -818,8 +785,8 @@ DROP TABLE IF EXISTS `subscription`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `subscription` (
-  `id` int(11) NOT NULL,
-  `spectator_id` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `spectator_id` int NOT NULL,
   PRIMARY KEY (`id`,`spectator_id`),
   KEY `fk_subscription_spectator1_idx` (`spectator_id`),
   CONSTRAINT `fk_subscription_spectator1` FOREIGN KEY (`spectator_id`) REFERENCES `spectator` (`id`)
@@ -843,8 +810,8 @@ DROP TABLE IF EXISTS `subscription_emoticon`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `subscription_emoticon` (
-  `subscription_id` int(11) NOT NULL,
-  `emoticon_id` int(11) NOT NULL,
+  `subscription_id` int NOT NULL,
+  `emoticon_id` int NOT NULL,
   KEY `subcription_id_idx` (`subscription_id`),
   KEY `emoticon_id_idx` (`emoticon_id`),
   CONSTRAINT `emoticon_id` FOREIGN KEY (`emoticon_id`) REFERENCES `emoticon` (`id`),
@@ -869,7 +836,7 @@ DROP TABLE IF EXISTS `support`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `support` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `name` varchar(45) NOT NULL,
   `surname` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
@@ -893,7 +860,7 @@ DROP TABLE IF EXISTS `twitch_moderator`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `twitch_moderator` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -916,7 +883,7 @@ DROP TABLE IF EXISTS `type_of_limitation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `type_of_limitation` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
@@ -940,16 +907,16 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `username` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `info` varchar(45) DEFAULT NULL,
   `birthday` datetime DEFAULT NULL,
   `status` enum('в сети','невидимый','Не беспокоить') DEFAULT 'в сети',
-  `share` tinyint(4) DEFAULT '1',
+  `share` tinyint DEFAULT '1',
   `image` varchar(255) NOT NULL DEFAULT 'default_image.jpg',
   `banner` varchar(255) DEFAULT 'default_banner.jpg',
-  `site_setting_id` int(11) NOT NULL,
+  `site_setting_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`),
   KEY `fk_user_site_setting_idx` (`site_setting_id`),
@@ -975,8 +942,8 @@ DROP TABLE IF EXISTS `user_limitation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_limitation` (
-  `type_id` int(11) NOT NULL,
-  `spectator_id` int(11) DEFAULT NULL,
+  `type_id` int NOT NULL,
+  `spectator_id` int DEFAULT NULL,
   `date_from` timestamp NULL DEFAULT NULL,
   `date_to` timestamp NULL DEFAULT NULL,
   KEY `spectator_id_idx` (`spectator_id`),
@@ -1003,10 +970,10 @@ DROP TABLE IF EXISTS `video`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `video` (
-  `id` int(11) NOT NULL,
-  `type` int(11) NOT NULL,
-  `video_id` int(11) NOT NULL,
-  `channel_id` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `type` int NOT NULL,
+  `video_id` int NOT NULL,
+  `channel_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_video_clip1_idx` (`video_id`),
   KEY `fk_video_channel1_idx` (`channel_id`),
@@ -1033,11 +1000,11 @@ DROP TABLE IF EXISTS `voting`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `voting` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `winning_option_id` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `winning_option_id` int DEFAULT NULL,
   `date` datetime DEFAULT NULL,
   `status` enum('open','completed') NOT NULL,
-  `channel_chat_id` int(11) NOT NULL,
+  `channel_chat_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_voting_channel_chat1_idx` (`channel_chat_id`),
@@ -1063,4 +1030,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-19  0:55:45
+-- Dump completed on 2020-11-19  0:56:20
