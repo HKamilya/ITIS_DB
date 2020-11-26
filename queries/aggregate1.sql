@@ -24,3 +24,12 @@ left join user on user.id = participant.user_id
 left join channel_chat_message on channel_chat_message.participant_id = participant.id
 where participant.type_id = 1
 group by chat_id;
+
+-- Вывести роли в чате канала, их общее количество, где id пользователя больше 20 и сгруппировать по ролям.
+select c.type, count(*) from channel inner join channel_chat c on c.channel_id = channel.id where user_id > 20 group by c.type;
+
+-- Вывести среднее время задержки на каналах у всех пользователей, username которых короче 8 символов
+select avg(c.delay_between_messages) as average_delay from channel_chat c inner join channel on c.channel_id = channel.id inner join user on channel.user_id = user.id where length(user.username) < 8  group by user.username;
+
+-- Вывести максимальный id пользователей, у которых статус "в сети".
+select max(id) from user where status = "в сети";
