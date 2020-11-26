@@ -33,3 +33,18 @@ select avg(c.delay_between_messages) as average_delay from channel_chat c inner 
 
 -- Вывести максимальный id пользователей, у которых статус "в сети".
 select max(id) from user where status = "в сети";
+
+-- посчитать количество каналов, на которых были стримы
+select count(distinct channel_id) as channels 
+from channel_stream;
+
+-- вывести имя пользователя, id канала и id последнего стрима
+select user.username, channel_id as channel_id, max(stream_id) as last_stream
+from channel_stream
+left join channel on channel_stream.channel_id = channel.id
+left join user on user.id = channel.user_id
+group by channel_id;
+
+-- вывести максимальное и минимальное количество стримов 
+select max(stream_count) as max, min(stream_count) as min 
+from (select channel_id, count(stream_id) as stream_count from channel_stream group by channel_id) as stream_counts;
