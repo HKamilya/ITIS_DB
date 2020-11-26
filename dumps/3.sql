@@ -1,6 +1,6 @@
--- MySQL dump 10.13  Distrib 8.0.21, for macos10.15 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: our_twitch
+-- Host: localhost    Database: our_twitch
 -- ------------------------------------------------------
 -- Server version	8.0.21
 
@@ -437,6 +437,39 @@ CREATE TABLE `emoticon` (
 LOCK TABLES `emoticon` WRITE;
 /*!40000 ALTER TABLE `emoticon` DISABLE KEYS */;
 /*!40000 ALTER TABLE `emoticon` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `flyway_schema_history`
+--
+
+DROP TABLE IF EXISTS `flyway_schema_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `flyway_schema_history` (
+  `installed_rank` int NOT NULL,
+  `version` varchar(50) DEFAULT NULL,
+  `description` varchar(200) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `script` varchar(1000) NOT NULL,
+  `checksum` int DEFAULT NULL,
+  `installed_by` varchar(100) NOT NULL,
+  `installed_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `execution_time` int NOT NULL,
+  `success` tinyint(1) NOT NULL,
+  PRIMARY KEY (`installed_rank`),
+  KEY `flyway_schema_history_s_idx` (`success`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `flyway_schema_history`
+--
+
+LOCK TABLES `flyway_schema_history` WRITE;
+/*!40000 ALTER TABLE `flyway_schema_history` DISABLE KEYS */;
+INSERT INTO `flyway_schema_history` VALUES (1,'1','create site setting','SQL','V1__create_site_setting.sql',190097265,'root','2020-11-18 22:10:15',23,1),(2,'2','create user','SQL','V2__create_user.sql',607799043,'root','2020-11-18 22:10:16',33,1),(3,'3','create friend','SQL','V3__create_friend.sql',-1983132570,'root','2020-11-18 22:10:16',29,1),(4,'4','create chat user','SQL','V4__create_chat_user.sql',-1000477449,'root','2020-11-18 22:10:16',27,1),(5,'5','create support','SQL','V5__create_support.sql',-1395315714,'root','2020-11-18 22:10:16',21,1),(6,'6','create chat support','SQL','V6__create_chat_support.sql',-1851488372,'root','2020-11-18 22:10:16',31,1),(7,'7','create message user','SQL','V7__create_message_user.sql',-852161559,'root','2020-11-18 22:10:16',27,1),(8,'8','create message support','SQL','V8__create_message_support.sql',-2139903544,'root','2020-11-18 22:10:16',29,1),(9,'9','create broadcast recording','SQL','V9__create_broadcast_recording.sql',-706685279,'root','2020-11-18 22:10:16',20,1),(10,'10','create clip','SQL','V10__create_clip.sql',-492265952,'root','2020-11-18 22:10:16',19,1),(11,'11','create video','SQL','V11__create_video.sql',-956626708,'root','2020-11-18 22:10:16',23,1),(12,'12','create channel','SQL','V12__create_channel.sql',-2047169357,'root','2020-11-18 22:10:16',30,1),(13,'13','create participant','SQL','V13__create_participant.sql',-1807434243,'root','2020-11-18 22:10:16',25,1),(14,'14','create follow','SQL','V14__create_follow.sql',1923619746,'root','2020-11-18 22:10:16',45,1),(15,'15','create twitch moderator','SQL','V15__create_twitch_moderator.sql',-710825510,'root','2020-11-18 22:10:16',20,1),(16,'16','create spectator','SQL','V16__create_spectator.sql',-543431854,'root','2020-11-18 22:10:16',31,1),(17,'17','create subscription','SQL','V17__create_subscription.sql',971975155,'root','2020-11-18 22:10:16',24,1),(18,'18','create emoticon','SQL','V18__create_emoticon.sql',1648659339,'root','2020-11-18 22:10:16',22,1),(19,'19','create subscription emoticon','SQL','V19__create_subscription_emoticon.sql',-42267702,'root','2020-11-18 22:10:16',27,1),(20,'20','create moderator','SQL','V20__create_moderator.sql',-1455301970,'root','2020-11-18 22:10:16',25,1),(21,'21','create ban','SQL','V21__create_ban.sql',-2063197520,'root','2020-11-18 22:10:16',25,1),(22,'22','type of limitation','SQL','V22__type_of_limitation.sql',323538679,'root','2020-11-18 22:10:16',20,1),(23,'23','create user limitation','SQL','V23__create_user_limitation.sql',-498371784,'root','2020-11-18 22:10:16',29,1),(24,'24','create channel chat','SQL','V24__create_channel_chat.sql',1426843225,'root','2020-11-18 22:10:17',21,1),(25,'25','create bot','SQL','V25__create_bot.sql',397095277,'root','2020-11-18 22:10:17',25,1),(26,'26','create category','SQL','V26__create_category.sql',1567089990,'root','2020-11-18 22:10:17',21,1),(27,'27','create channel chat message','SQL','V27__create_channel_chat_message.sql',1401129791,'root','2020-11-18 22:10:17',24,1),(28,'28','create channel chat message emoticon','SQL','V28__create_channel_chat_message_emoticon.sql',-1568550202,'root','2020-11-18 22:10:17',26,1),(29,'29','create stream configuration','SQL','V29__create_stream_configuration.sql',1803947250,'root','2020-11-18 22:10:17',22,1),(30,'30','create stream','SQL','V30__create_stream.sql',-1804286743,'root','2020-11-18 22:10:17',24,1),(31,'31','create channel stream','SQL','V31__create_channel_stream.sql',-814418158,'root','2020-11-18 22:10:17',24,1),(32,'32','create donate content','SQL','V32__create_donate_content.sql',711497700,'root','2020-11-18 22:10:17',21,1),(33,'33','create donate','SQL','V33__create_donate.sql',1308190550,'root','2020-11-18 22:10:17',27,1),(34,'34','create voting','SQL','V34__create_voting.sql',-1330121619,'root','2020-11-18 22:10:17',24,1),(35,'35','create option','SQL','V35__create_option.sql',1247956947,'root','2020-11-18 22:10:17',26,1),(36,'36','create report','SQL','V36__create_report.sql',-1740746088,'root','2020-11-18 22:10:17',24,1),(37,'37','alter table','SQL','V37__alter_table.sql',-1909912631,'root','2020-11-18 22:10:18',727,1),(38,'38','insert into channel','SQL','V38__insert_into_channel.sql',-1263766045,'root','2020-11-18 22:10:18',114,1),(39,'39','insert into channel chat','SQL','V39__insert_into_channel_chat.sql',392591908,'root','2020-11-18 22:10:18',94,1),(40,'40','insert into stream','SQL','V40__insert_into_stream.sql',-22869629,'root','2020-11-18 22:10:18',66,1),(41,'41','insert into channel stream','SQL','V41__insert_into_channel_stream.sql',2073517100,'root','2020-11-18 22:10:18',76,1),(42,'42','insert into user','SQL','V42__insert_into_user.sql',-208130054,'root','2020-11-18 22:10:18',111,1),(43,'43','.insert into participant','SQL','V43__.insert_into_participant.sql',-1624462608,'root','2020-11-18 22:10:18',102,1);
+/*!40000 ALTER TABLE `flyway_schema_history` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1030,4 +1063,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-19  0:56:20
+-- Dump completed on 2020-11-19  1:23:43
