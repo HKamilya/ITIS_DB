@@ -23,7 +23,7 @@ CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 -- Schema our_twitch
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `our_twitch` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
-USE `mydb` ;
+USE `our_twitch` ;
 
 -- -----------------------------------------------------
 -- Table `our_twitch`.`site_setting`
